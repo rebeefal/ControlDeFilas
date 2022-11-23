@@ -1,0 +1,66 @@
+
+
+
+
+<div class="ticket-body">
+  <body>
+  <div class="row">
+    <div class="column" >
+      <table>
+        <tr>
+          <th><h2>
+            Ficha
+          </h2></th>
+          <th><h2>
+            Ventanilla
+          </h2></th>
+        </tr>
+        <tr *ngFor="let queue of queueClients;let index=index">
+          <td *ngIf="queue.window"><h1>{{queue.departmentLetter}}{{queue.clientNumber}}</h1></td>
+          <td *ngIf="queue.window"><h1>{{queue.window}}</h1></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  </body>
+</div>
+
+
+
+<!--
+
+<div class="justify-content-center">
+  <div class="card-container">
+    <div>
+
+      <span>
+        <div class="card card-large" tabindex="0">
+          <table class="table" >
+              <thead>
+              <tr>
+                <th scope="col">
+                  <p>Ficha</p>
+                </th>
+                <th scope="col">
+                  <p>Pasar a Ventanilla</p>
+                </th>
+              </tr>
+              </thead>
+              <tbody *ngFor="let queue of queueClients;let index=index">
+                <tr *ngIf="queue.window">
+                  <th scope="row">
+                    <p>{{queue.departmentLetter}}{{queue.clientNumber}}</p>
+                  </th>
+                  <td>
+                    <p>{{queue.window}}</p>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </span>
+
+    </div>
+  </div>
+</div>
+-->

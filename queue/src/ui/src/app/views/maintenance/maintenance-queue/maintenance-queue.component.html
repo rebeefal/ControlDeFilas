@@ -1,0 +1,56 @@
+<div class="queue-body">
+  <div class="container-fluid">
+    <h2 class="row justify-content-center">Control de Filas</h2>
+  </div>
+  <div class="container-fluid">
+    <p class="row justify-content-center">Manejo de </p>
+  </div>
+  <div class="spacer" style="height: 20px">
+  </div>
+
+  <body>
+  <div class="row">
+    <div class="column" *ngFor="let bd of branchDepartments;let index=index">
+
+      <table>
+        <tr>
+          <th>{{bd.branchName}}{{bd.departmentName}}</th>
+        </tr>
+        <tr>
+          <th>Ficha</th>
+          <th>Ventanilla</th>
+          <th>Eliminar</th>
+          <th>Asignar Ventanilla</th>
+          <th>Asignar</th>
+        </tr>
+        <tr *ngFor="let queue of queueClients;let index=index">
+          <td *ngIf="queue.branchDepartmentId == bd.branchDepartmentId" >{{queue.departmentLetter}}{{queue.clientNumber}}</td>
+          <td *ngIf="queue.branchDepartmentId == bd.branchDepartmentId">{{queue.window}}</td>
+          <td *ngIf="queue.branchDepartmentId == bd.branchDepartmentId">
+            <button type="button" class="btn btn-primary btn-floating"
+                    (click)="deleteById(queue.id)"><i class="fa-solid fa-delete-left"></i>
+            </button>
+          </td>
+          <td *ngIf="queue.branchDepartmentId == bd.branchDepartmentId">
+            <div class="form-outline">
+              <input (keyup)="onKey($event)" type="text" id="formControlLg" class="form-control form-control-lg" />
+              <label class="form-label" for="formControlLg"></label>
+            </div>
+          </td>
+          <td *ngIf="queue.branchDepartmentId == bd.branchDepartmentId">
+            <button type="button" class="btn btn-primary btn-floating"
+                    (click)="callClient(queue.id)" >
+              <i class="fa-solid fa-phone"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="container-fluid">
+      <button class="btn-secondary btn-rounded" tabindex="0"
+              (click)="deleteAllQueues()">
+        <p>Reset</p></button>
+    </div>
+  </div>
+  </body>
+

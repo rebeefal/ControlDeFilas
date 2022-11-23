@@ -1,0 +1,79 @@
+
+
+@media screen and (max-width: 1280px) {
+
+}
+
+.kiosk-body{
+  max-width: 1280px;
+  max-height: 800px;
+}
+
+.col-6{
+}
+
+
+h1{
+  font-size: 72pt;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+h2{
+  font-size: 60pt;
+}
+
+p {
+  margin: 0;
+  font-size: 26pt;
+}
+.container{
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+}
+
+
+
+.item{
+  width: 80%;
+  align-items: center;
+  justify-items: center;
+}
+
+
+
+.card{
+  width: 80%;
+  align-items: center;
+  justify-items: center;
+  h1{
+    font-size: 100px;
+  }
+}
+
+.card.card-ticket{
+  height: 200px;
+  margin: 20px;
+}
+
+.btn-primary{
+  border: 1px solid #00763a;
+  background-color: #00763a;
+  font-color:white;
+  width: 80%;
+  height: auto;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.btn-secondary{
+  width: 50%;
+  border: 1px solid #00763a;
+  background-color: #00763a;
+}

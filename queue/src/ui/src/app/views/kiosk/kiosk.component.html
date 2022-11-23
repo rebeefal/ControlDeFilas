@@ -1,0 +1,46 @@
+<div class="kiosk-body">
+  <div class="container-fluid">
+    <h2 class="row justify-content-center">Bienvenido</h2>
+  </div>
+
+  <div class="container-fluid">
+    <p class="row justify-content-center">Seleccione el departamento que visita hoy</p>
+  </div>
+  <div class="spacer" style="height: 20px">
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="container">
+        <div class="item">
+          <p>Su ficha es: </p>
+        </div>
+        <div>
+          <div class="card card-ticket">
+              <div *ngIf="queueClient">
+                <h1 >{{queueClient.departmentLetter}}{{queueClient.clientNumber}}</h1>
+              </div>
+
+          </div>
+          <div class="item">
+            <button
+              (click)="printClientNumber(queueClient.clientNumber)"
+              class="btn-secondary btn-rounded" tabindex="0">
+              <p>Imprimir</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 ">
+      <div class="container">
+        <div *ngFor="let branchDepartment of branchDepartments;let index=index">
+          <button
+            class="btn-primary " tabindex="0"
+            (click)="addClient(branchDepartment.branchDepartmentId)">
+              <p>{{branchDepartment.departmentName}}</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

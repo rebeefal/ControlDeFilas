@@ -1,0 +1,129 @@
+<div class=" maintenance-kiosk">
+  <div class="container-fluid">
+    <h2 class="row justify-content-center">Mantenimiento</h2>
+  </div>
+  <div class="container-fluid">
+    <p class="row justify-content-center">Manejo de sucursales y deparamentos</p>
+  </div>
+  <div class="spacer" style="height: 20px">
+  </div>
+  <div class="row">
+    <div class="column" >
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Direccion IP</th>
+          <th>Eliminar</th>
+        </tr>
+        <tr *ngFor="let branch of branches;let index=index ">
+          <td>
+            <div>
+              <label>{{branch.id}}   </label>
+            </div>
+          </td>
+          <td>
+            <div>
+              <label>{{branch.branchName}}  </label>
+            </div>
+          </td>
+          <td>
+            <div>
+              <label>{{branch.ip}}  </label>
+            </div>
+          </td>
+          <td>
+            <div>
+              <button type="button" class="btn btn-primary btn-floating"
+                      (click)="deleteBranchById(branch.id)"><i class="fa-solid fa-delete-left"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div class="spacer" style="height: 100px">
+      </div>
+
+      <table>
+        <th>
+        </th>
+        <tr>
+          <td>
+            <form #fBranch="ngForm" (ngSubmit)="createBranch(fBranch)" novalidate>
+              <label>Nombre</label>
+              <input value="Nombre" type="text"
+                     name="branchName" ngModel required #branchName="ngModel">
+              <label>Direccion IP</label>
+              <input label="ip"
+                     name="ip" ngModel>
+              <button class="btn-secondary btn-rounded" tabindex="0">Agregar</button>
+            </form>
+          </td>
+        </tr>
+      </table>
+
+      <div class="container-fluid">
+        <button class="btn-secondary btn-rounded" tabindex="0"
+                (click)="deleteBranchAll()">
+          <p>Eliminar Todos</p></button>
+      </div>
+    </div>
+    <div class="column" >
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Letra</th>
+        </tr>
+        <tr *ngFor="let department of departments;let index=index">
+          <td>
+            <div>
+              <label>{{department.id}} </label>
+            </div>
+          </td>
+          <td>
+            <label>{{department.departmentName}} </label>
+          </td>
+          <td>
+            <label>{{department.departmentLetter}} </label>
+          </td>
+          <td>
+            <div>
+              <button type="button" class="btn btn-primary btn-floating"
+                      (click)="deleteDepartmentById(department.id)"><i class="fa-solid fa-delete-left"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer" style="height: 100px">
+      </div>
+
+      <table>
+        <th>
+        </th>
+        <tr>
+          <td>
+            <form #fDepartment="ngForm" (ngSubmit)="createDepartment(fDepartment)" novalidate>
+              <label>Nombre</label>
+              <input label="Nombre"
+                     name="departmentName" ngModel required #departmentName="ngModel">
+              <label>Letra</label>
+              <input label="Letra"
+                     name="departmentLetter" ngModel>
+              <button class="btn-secondary btn-rounded" tabindex="0">Agregar</button>
+            </form>
+          </td>
+        </tr>
+
+      </table>
+
+      <div class="container-fluid">
+        <button class="btn-secondary btn-rounded" tabindex="0"
+                (click)="deleteDepartmentsAll()">
+          <p>Eliminar Todos</p></button>
+      </div>
+    </div>
+  </div>
+</div>
