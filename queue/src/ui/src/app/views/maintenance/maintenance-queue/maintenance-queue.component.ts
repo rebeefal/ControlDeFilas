@@ -37,6 +37,7 @@ export class MaintenanceQueueComponent implements OnInit {
   }
 
 
+  tempIp:string;
   getIPAddress() {
     this.branchDepartmentService.getIPAddress().subscribe((value => {
       this.ip = value;
@@ -45,9 +46,11 @@ export class MaintenanceQueueComponent implements OnInit {
         this.branches = branches;
         this.cdRef.detectChanges()
         this.branches.forEach(branch =>{
-          console.log( "en getIpAddress" + branch.ip);
-          if(branch.ip == value.ip){
-            console.log( "en getIpAddress if " + branch.id);
+
+          this.tempIp = "1.1.1.1"; // temp
+          //if(branch.ip == value.ip){
+            if(branch.ip == this.tempIp){
+
             this.branchId = branch.id;
           }
         })
@@ -68,7 +71,7 @@ export class MaintenanceQueueComponent implements OnInit {
   getAllQueueClientsByBrachId(branchId:number){
     this.queueClientService.getAllQueueClientsByBrachId(this.branchId).subscribe((queueClients) => {
       this.queueClients = queueClients;
-      console.log(this.queueClients);
+
       this.cdRef.detectChanges()
     });
     //this.getAllBranchDepartments(this.queueClients);
@@ -78,7 +81,7 @@ export class MaintenanceQueueComponent implements OnInit {
   getAllQueueClients(){
     this.queueClientService.getAllQueueClients().subscribe((queueClients) => {
       this.queueClients = queueClients;
-      console.log(this.queueClients);
+
       this.cdRef.detectChanges()
     });
     this.getAllBranchDepartments(this.queueClients);
@@ -114,7 +117,7 @@ export class MaintenanceQueueComponent implements OnInit {
       console.log(this.window)
       this.queueClients.forEach(queueClient => {
         if (queueClient.id == id) {
-          console.log("queueClient.id == id  " + (queueClient.id == id))
+
           this.queueClient = queueClient;
           this.queueClient.window = this.window;
           this.queueClientService.callClient(this.queueClient).subscribe(value => {

@@ -35,22 +35,7 @@ export class TicketComponent implements OnInit {
 
   }
 
-
-/*  getIPAddress() {
-    this.branchDepartmentService.getIPAddress().subscribe((value => {
-      this.ip = value;
-      console.log(this.ip);
-      if(value.ip=="75.70.125.53"){this.branchId=1}
-        //if(value.ip=="75.70.125.53"){this.branchId=2}
-        //if(value.ip=="75.70.125.53"){this.branchId=3}
-      //if(value.ip=="75.70.125.53"){this.branchId=4}
-      else{this.branchId=2}
-      this.getBranchDepartmentsByBranch(this.branchId);
-      this.getAllQueueClientsByBrachId(this.branchId);
-      this.cdRef.detectChanges()
-    }));
-  }*/
-
+  tempIp:string;
   getIPAddress() {
     this.branchDepartmentService.getIPAddress().subscribe((value => {
       this.ip = value;
@@ -59,9 +44,11 @@ export class TicketComponent implements OnInit {
         this.branches = branches;
         this.cdRef.detectChanges()
         this.branches.forEach(branch =>{
-          console.log( "en getIpAddress" + branch.ip);
-          if(branch.ip == value.ip){
-            console.log( "en getIpAddress if " + branch.id);
+
+          this.tempIp = "1.1.1.1"; // temp
+          //if(branch.ip == value.ip){
+          if(branch.ip == this.tempIp){
+
             this.branchId = branch.id;
           }
         })

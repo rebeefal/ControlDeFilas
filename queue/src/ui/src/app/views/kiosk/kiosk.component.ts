@@ -72,7 +72,7 @@ export class KioskComponent implements OnInit {
     });
   }
 
-
+  tempIp:string;
   getIPAddress() {
     this.branchDepartmentService.getIPAddress().subscribe((value => {
       this.ip = value;
@@ -81,12 +81,13 @@ export class KioskComponent implements OnInit {
         this.branches = branches;
         this.cdRef.detectChanges()
         this.branches.forEach(branch =>{
-          console.log( "en getIpAddress" + branch.ip);
-          if(branch.ip == value.ip){
-            console.log( "en getIpAddress if " + branch.id);
-            this.branchId = branch.id;
-          }
-        })
+          this.tempIp = "1.1.1.1"; // temp
+          //if(branch.ip == value.ip){
+            if(branch.ip == this.tempIp){
+
+              this.branchId = branch.id;
+            }
+          })
         this.getBranchDepartmentsByBranch(this.branchId);
         this.cdRef.detectChanges()
       });
@@ -135,14 +136,14 @@ export class KioskComponent implements OnInit {
       this.clients.sort(this.compareNumbers);
       this.next = (this.clients.at((this.clients.length - 1)) + 1);
 
-      console.log("2  "+this.next);
+
     } else {
       this.next = 1;
     }
     if(this.clients.length==0){
       this.next=1;
     }
-    console.log("3  "+this.next)
+
     this.clients = [];
     return this.next;
   }
