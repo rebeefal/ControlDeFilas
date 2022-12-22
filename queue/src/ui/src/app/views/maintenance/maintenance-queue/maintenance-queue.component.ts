@@ -47,13 +47,13 @@ export class MaintenanceQueueComponent implements OnInit {
         this.cdRef.detectChanges()
         this.branches.forEach(branch =>{
 
-          this.tempIp = "1.1.1.1"; // temp
-          //if(branch.ip == value.ip){
-            if(branch.ip == this.tempIp){
+          //this.tempIp = "1.1.1.1"; // temp
+          if(branch.ip == value.ip) {
+            if (branch.ip == this.tempIp) {
 
-            this.branchId = branch.id;
-          }
-        })
+              this.branchId = branch.id;
+            }
+          }})
         this.getBranchDepartmentsByBranch(this.branchId);
         this.getAllQueueClientsByBrachId(this.branchId);
         this.cdRef.detectChanges()
