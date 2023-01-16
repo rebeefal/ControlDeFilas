@@ -14,14 +14,11 @@ import {BranchDepartment} from "../../../models/branch_department";
 })
 export class MaintenanceBranchDepartmentComponent implements OnInit {
 
-
   branches: Branch[];
   departments: Department[];
   branch: Branch;
   department: Department;
   branchDepartment: BranchDepartment=null;
-
-
 
   constructor(
     private branchService: BranchService,
@@ -51,32 +48,27 @@ export class MaintenanceBranchDepartmentComponent implements OnInit {
   onChangeBranch(e) {
     const id = e.target.value
     this.branches.forEach(branch => {
-      //if (branch.branchId == id) {
       if (branch.id == id) {
         this.branch = branch;
       }
     });
-    //this.branch = e.target.value;
   }
 
   onChangeDepartment(e) {
     const id = e.target.value
     this.departments.forEach(department => {
-      //if (department.departmentId == id) {
       if (department.id == id) {
         this.department = department;
       }
     });
-    //this.department = e.target.value;
   }
 
   saveEntry() {
     this.branchDepartment= {
       id:null,
       branchDepartmentId: this.branch.id.toString() + this.department.id.toString(),
-      //branchDepartmentId: this.branch.branchId.toString() + this.department.departmentId.toString(),
-      branchId:this.branch.id,   //branchId,
-      departmentId: this.department.id,  //departmentId,
+      branchId:this.branch.id,   
+      departmentId: this.department.id, 
       branchName:this.branch.branchName,
       departmentName:this.department.departmentName,
       departmentLetter:this.department.departmentLetter

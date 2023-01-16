@@ -1,7 +1,4 @@
 package com.queue.controller;
-
-import com.queue.entity.Branch;
-import com.queue.entity.BranchDepartment;
 import com.queue.entity.Queue;
 import com.queue.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +32,9 @@ public class QueueController {
         return queueService.findQueuesByBd_Id(branchDepartmentId);
     }
 
-
-//http://localhost:8080/api/queue/branch/department/undefined
-
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/branch/department/{branchId}")
     public Collection<Queue> findQueuesByBranchId(@PathVariable("branchId") int branchId) {
-        
         return queueService.findQueuesByBranchId(branchId);
     }
 
@@ -75,7 +68,7 @@ public class QueueController {
     public Queue nextClient(@RequestBody(required = true) Queue queue)  {
         Queue queueTemp= new Queue();
         if(queue.getClientNumber()!=0){
-            int clientNumber= queue.getClientNumber();
+            //int clientNumber= queue.getClientNumber();
             queueTemp =  queueService.nextClient(queue.getBranchId(),queue.getDepartmentId(),queue.getWindow(),queue.getClientNumber());
         }else{
             queueTemp  = queueService.nextClient(queue.getBranchId(),queue.getDepartmentId(),queue.getWindow());
@@ -87,7 +80,6 @@ public class QueueController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/window/add")
     public boolean updateWindow(@RequestBody(required = true) Queue queue) {
-        
         return queueService.updateWindow(queue.getWindow(), queue.getId());
     }
 }

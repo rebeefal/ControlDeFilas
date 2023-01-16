@@ -14,9 +14,6 @@ public class BranchDepartmentController {
     @Autowired
     BranchDepartmentService branchDepartmentService;
 
-
-
-
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/{id}")
     public BranchDepartment getById(@PathVariable("id") int id) {
@@ -26,8 +23,6 @@ public class BranchDepartmentController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/all")
     public Collection<BranchDepartment> findAll() {
-
-
         return branchDepartmentService.findAll();
     }
 

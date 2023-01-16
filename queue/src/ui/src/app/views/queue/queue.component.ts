@@ -23,6 +23,7 @@ export class QueueComponent implements OnInit {
   queueClients:QueueClient[];
   branchDepartments:BranchDepartment[];
   branch: Branch;
+  branches: Branch[];
   private branchDepartment:BranchDepartment;
   private queueClient:QueueClient;
   ip:Ip;
@@ -41,7 +42,6 @@ export class QueueComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIPAddress()
-    //this.getAllQueueClients();
   }
 
   getAllQueueClientsByBrachId(branchId:number){
@@ -51,7 +51,6 @@ export class QueueComponent implements OnInit {
       console.log(this.queueClients);
       this.cdRef.detectChanges()
     });
-    //this.getAllBranchDepartments(this.queueClients);
   }
 
   getAllQueueClients(){
@@ -71,20 +70,25 @@ export class QueueComponent implements OnInit {
     });
   }
 
+
   getIPAddress() {
     this.branchDepartmentService.getIPAddress().subscribe((value => {
       this.ip = value;
       console.log(this.ip);
-      if(value.ip=="75.70.125.53"){this.branchId=1}
-        //if(value.ip=="75.70.125.53"){this.branchId=2}
-        //if(value.ip=="75.70.125.53"){this.branchId=3}
-      //if(value.ip=="75.70.125.53"){this.branchId=4}
-      else{this.branchId=2}
-      this.getBranchDepartmentsByBranch(this.branchId);
-      this.getAllQueueClientsByBrachId(this.branchId);
-      this.cdRef.detectChanges()
+      this.branchService.getAllBranches().subscribe((branches) => {
+        this.branches = branches;
+        this.cdRef.detectChanges()
+        this.branches.forEach(branch =>{
+          if(branch.ip == value.ip) {
+              this.branchId = branch.id;
+          }})
+          this.getBranchDepartmentsByBranch(this.branchId);
+          this.getAllQueueClientsByBrachId(this.branchId);
+          this.cdRef.detectChanges()
+        });
     }));
   }
+
 
 
   getAllBranchDepartments(queueClients:QueueClient[]){

@@ -1,6 +1,4 @@
 package com.queue.repository;
-
-import com.queue.entity.BranchDepartment;
 import com.queue.entity.Queue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,6 +12,7 @@ import java.util.Collection;
 
 @Repository
 public interface QueueRepository extends JpaRepository<Queue, Integer> {
+    
     @Query("SELECT d FROM Queue d WHERE d.branchDepartmentId=:branchDepartmentId")
     Collection<Queue> findQueuesByBd_Id(String branchDepartmentId);
 

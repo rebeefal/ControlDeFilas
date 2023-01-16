@@ -1,6 +1,4 @@
 package com.queue.service;
-
-import com.queue.entity.BranchDepartment;
 import com.queue.entity.Queue;
 
 import java.util.Collection;

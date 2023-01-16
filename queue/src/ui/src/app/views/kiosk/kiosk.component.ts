@@ -46,7 +46,6 @@ export class KioskComponent implements OnInit {
   ngOnChanges(changes) {
     this.getAllQueueClients();
     if (changes) {
-      console.log("changes   " + changes);
       console.log(this.queueClientsSelected)
     }
   }
@@ -72,7 +71,6 @@ export class KioskComponent implements OnInit {
     });
   }
 
-  tempIp:string;
   getIPAddress() {
     this.branchDepartmentService.getIPAddress().subscribe((value => {
       this.ip = value;
@@ -81,12 +79,8 @@ export class KioskComponent implements OnInit {
         this.branches = branches;
         this.cdRef.detectChanges()
         this.branches.forEach(branch =>{
-         
           if(branch.ip == value.ip) {
-           
-
               this.branchId = branch.id;
-           
           }})
         this.getBranchDepartmentsByBranch(this.branchId);
         this.cdRef.detectChanges()
@@ -122,28 +116,22 @@ export class KioskComponent implements OnInit {
     return a - b;
   }
 
-  temp:string;
   getNextClientNumber(bd_id: string): number {
     this.next = 0;
     if (this.queueClients.length != 0) {
-
       this.queueClients.forEach(client => {
-
         if (client.branchDepartmentId == bd_id) {
           this.clients.push(client.clientNumber);
         }
       });
       this.clients.sort(this.compareNumbers);
       this.next = (this.clients.at((this.clients.length - 1)) + 1);
-
-
     } else {
       this.next = 1;
     }
     if(this.clients.length==0){
       this.next=1;
     }
-
     this.clients = [];
     return this.next;
   }

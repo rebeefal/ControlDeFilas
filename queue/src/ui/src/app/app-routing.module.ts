@@ -5,12 +5,8 @@ import { QueueComponent } from './views/queue/queue.component';
 import {TicketComponent} from "./views/ticket/ticket.component";
 import {MaintenanceComponent} from "./views/maintenance/maintenance.component";
 import {MaintenanceQueueComponent} from "./views/maintenance/maintenance-queue/maintenance-queue.component";
-import {
-  MaintenanceBranchDepartmentComponent
-} from "./views/maintenance/maintenance-branch-department/maintenance-branch-department.component";
-import {
-  MaintenanceBranchListComponent
-} from "./views/maintenance/maintenance-branch-list/maintenance-branch-list.component";
+import {MaintenanceBranchDepartmentComponent} from "./views/maintenance/maintenance-branch-department/maintenance-branch-department.component";
+import {MaintenanceBranchListComponent} from "./views/maintenance/maintenance-branch-list/maintenance-branch-list.component";
 import {HomeComponent} from "./views/home/home.component";
 
 
@@ -35,12 +31,10 @@ const routes: Routes = [
         component: MaintenanceBranchListComponent
       }
     ]
-
   },
   { path: 'home', component: HomeComponent },
   { path: '', component: HomeComponent},
   { path: 'kiosk', component: KioskComponent },
-  //{ path: 'queue', component: QueueComponent },
   { path: 'ticket', component: TicketComponent }
 ];
 

@@ -51,23 +51,19 @@ export class MaintenanceBranchListComponent implements OnInit {
   onChangeBranch(e) {
     const id = e.target.value
     this.branches.forEach(branch => {
-      //if (branch.branchId == id) {
       if (branch.id == id) {
         this.branch = branch;
       }
     });
-    //this.branch = e.target.value;
   }
 
   onChangeDepartment(e) {
     const id = e.target.value
     this.departments.forEach(department => {
-      // if (department.departmentId == id) {
       if (department.id == id) {
         this.department = department;
       }
     });
-    //this.department = e.target.value;
   }
 
   saveEntry() {
@@ -97,11 +93,9 @@ export class MaintenanceBranchListComponent implements OnInit {
 
   newBranch:Branch;
 
-
   createBranch(fBranch:NgForm){
     this.newBranch = {
       id:null,
-      //branchId:fBranch.value.branchId,
       ip:fBranch.value.ip,
       branchName:fBranch.value.branchName
     }
@@ -113,7 +107,6 @@ export class MaintenanceBranchListComponent implements OnInit {
   createDepartment(fDepartment:NgForm){
     this.newDepartment = {
       id:null,
-      //departmentId:fDepartment.value.departmentId,
       departmentName:fDepartment.value.departmentName,
       departmentLetter:fDepartment.value.departmentLetter
     }
@@ -145,11 +138,6 @@ export class MaintenanceBranchListComponent implements OnInit {
       .subscribe(value => {});
     window.location.reload();
   }
-
-
-
-
-
   get branchSelected(): Branch {
     return this.branch;
   }

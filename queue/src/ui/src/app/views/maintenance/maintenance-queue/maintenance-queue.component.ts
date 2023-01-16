@@ -33,7 +33,6 @@ export class MaintenanceQueueComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIPAddress()
-    //this.getAllQueueClients();
   }
 
 
@@ -46,8 +45,10 @@ export class MaintenanceQueueComponent implements OnInit {
         this.branches = branches;
         this.cdRef.detectChanges()
         this.branches.forEach(branch =>{
+          console.log(branch.ip + "=="+ value.ip)
           if(branch.ip == value.ip) {
               this.branchId = branch.id;
+              console.log(this.branchId)
           }})
         
         this.getBranchDepartmentsByBranch(this.branchId);

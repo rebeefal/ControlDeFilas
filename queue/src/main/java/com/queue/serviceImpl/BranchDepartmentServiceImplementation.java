@@ -1,7 +1,5 @@
 package com.queue.serviceImpl;
-
 import com.queue.entity.BranchDepartment;
-import com.queue.entity.Queue;
 import com.queue.repository.BranchDepartmentRepository;
 import com.queue.service.BranchDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,6 @@ public class BranchDepartmentServiceImplementation implements BranchDepartmentSe
 
     @Override
     public BranchDepartment getById(int branchId) {
-        System.out.print("Entro en branchDepartmentId get By Id  " + branchId);
-
         branchDepartmentRepository.findAll();
         BranchDepartment bd = branchDepartmentRepository.findById(branchId).orElse(null);
         return bd;
@@ -55,7 +51,8 @@ public class BranchDepartmentServiceImplementation implements BranchDepartmentSe
         return true;
     }
 
-/*    @Override
+    /*    
+    @Override
     public boolean deleteByBranchDepartmentId(String branchDepartmentId) {
         BranchDepartment bd=getById(branchDepartmentId);
 

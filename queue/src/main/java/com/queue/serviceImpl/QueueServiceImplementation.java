@@ -1,13 +1,9 @@
 package com.queue.serviceImpl;
-
-import com.queue.entity.BranchDepartment;
 import com.queue.entity.Queue;
 import com.queue.repository.QueueRepository;
 import com.queue.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,7 +17,6 @@ public class QueueServiceImplementation implements QueueService {
 
     @Override
     public Queue getById(int branchId) {
-        System.out.print("Entro en queueId get By Id  " + branchId);
         queueRepository.findAll();
         Queue bd = queueRepository.findById(branchId).orElse(null);
         return bd;
@@ -44,7 +39,8 @@ public class QueueServiceImplementation implements QueueService {
     public Collection<Queue> findAll() {
         Collection<Queue> qs = queueRepository.findAll();
         return qs;
-      }
+    }
+
     @Override
     public boolean popClient(String branchDepartmentId) {
         Collection<Queue> qs;
@@ -68,6 +64,7 @@ public class QueueServiceImplementation implements QueueService {
         queueRepository.deleteById(q.getId());
         return true;
     }
+
     @Override
     public boolean deleteAll() {
         queueRepository.deleteAll();
@@ -86,14 +83,12 @@ public class QueueServiceImplementation implements QueueService {
         if(exists==false){
             queueRepository.save(queue);
         }
-        //queueRepository.save(queue);
         return exists;
     }
 
     @Override
     public boolean updateWindow(String window,int id) {
         queueRepository.updateWindow(window,id);
-        System.out.println("queueRepository.updateWindow(window,id)  "+window +"    "+ id);
         return true;
     }
 
@@ -114,16 +109,8 @@ public class QueueServiceImplementation implements QueueService {
             }
         }
 
-        for (Queue c : qs) { // changes qs with bqs
-            //if(branchDepartmentId == c.getBranchDepartmentId()){ //
-                temp.add(c.getClientNumber());
-            //}  //
-            /*if (c.getBranchId() == branchId
-                    && c.getWindow()!=null) {
-                if (c.getWindow().equals(window)) {
-                    this.deleteById(c.getId());
-                }
-            }*/
+        for (Queue c : qs) { 
+            temp.add(c.getClientNumber());
             Collections.sort(temp);
             int next = temp.get(0);
             while (q == null) {

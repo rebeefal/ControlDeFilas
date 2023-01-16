@@ -1,6 +1,4 @@
 package com.queue.controller;
-
-import com.queue.entity.Branch;
 import com.queue.entity.Department;
 import com.queue.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +16,12 @@ public class DepartmentController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/{id}")
     public Department getById(@PathVariable("id") int id) {
-
         return departmentService.getById(id);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/all")
     public Collection<Department> findAll() {
-
-
         return departmentService.findAll();
     }
 
@@ -45,7 +40,6 @@ public class DepartmentController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(path = "/delete/{id}")
     public boolean deleteById(@PathVariable("id") int id) {
-
         return departmentService.deleteById(id);
     }
 
