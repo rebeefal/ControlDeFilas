@@ -59,9 +59,10 @@ export class QueueClientService {
   }
 
   getAllQueueClientsByBrachId(branchId:number):Observable<QueueClient[]>{
-    console.log( "in queue service " + branchId);
+   // console.log( "in queue service " + branchId);
     this.url=``;
     this.url=`${this.queryUrl}/branch/department/${branchId}`;
+    //console.log(branchId + "   "+ this.url)
     return this.http.get<QueueClient[]>(this.url)
       .pipe(catchError(this.errorService.handleError));
   }

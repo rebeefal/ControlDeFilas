@@ -14,6 +14,9 @@ public class BranchDepartmentController {
     @Autowired
     BranchDepartmentService branchDepartmentService;
 
+
+
+
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/{id}")
     public BranchDepartment getById(@PathVariable("id") int id) {

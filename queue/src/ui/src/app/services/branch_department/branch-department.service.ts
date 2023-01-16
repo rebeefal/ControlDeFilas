@@ -41,7 +41,7 @@ export class BranchDepartmentService {
   }
 
     getBranchDepartmentsByBranch(branchId:number):Observable<BranchDepartment[]>{
-      console.log( "in service " + branchId);
+      //console.log( "in service " + branchId);
       this.url=``;
       this.url=`${this.queryUrl}/branch/${branchId}`;
       return this.http.get<BranchDepartment[]>(this.url)

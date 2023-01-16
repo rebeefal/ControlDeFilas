@@ -45,6 +45,7 @@ export class QueueComponent implements OnInit {
   }
 
   getAllQueueClientsByBrachId(branchId:number){
+    console.log( " q in queue component "+branchId)
     this.queueClientService.getAllQueueClientsByBrachId(this.branchId).subscribe((queueClients) => {
       this.queueClients = queueClients;
       console.log(this.queueClients);
@@ -63,6 +64,7 @@ export class QueueComponent implements OnInit {
   }
 
   getBranchDepartmentsByBranch(branchId:number) {
+    console.log( " bd in queue component "+branchId)
     this.branchDepartmentService.getBranchDepartmentsByBranch(branchId).subscribe((branchDepartments) => {
       this.branchDepartments = branchDepartments;
       this.cdRef.detectChanges()
