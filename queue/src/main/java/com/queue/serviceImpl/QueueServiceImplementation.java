@@ -92,14 +92,7 @@ public class QueueServiceImplementation implements QueueService {
         return true;
     }
 
-    @Override
-    public Queue nextClient(int branchId, int departmentId, String window) {
-        Queue q = null;
-        String branchDepartmentId = String.valueOf(branchId) + String.valueOf(departmentId);
-        Collection<Queue> qs = findQueuesByBd_Id(branchDepartmentId);
-        Collection<Queue> bqs = findQueuesByBranchId(branchId);  //
-        List<Integer> temp = new ArrayList<>();
-
+    public void removeServedClient(Collection<Queue> bqs, int branchId, int departmentId, String window){
         for (Queue c : bqs) {
             if (c.getBranchId() == branchId
                     && c.getWindow()!=null) {
@@ -108,23 +101,38 @@ public class QueueServiceImplementation implements QueueService {
                 }
             }
         }
+    }
 
-        for (Queue c : qs) { 
+    public Queue updateNextClientWindow(Collection<Queue> qs, String window,Queue q){
+        List<Integer> temp = new ArrayList<>();
+        int next=0;
+        for (Queue c : qs) {
             temp.add(c.getClientNumber());
             Collections.sort(temp);
-            int next = temp.get(0);
-            while (q == null) {
-                for (Queue qc : qs) {
-                    if (qc.getClientNumber() == next) {
-                        if (qc.getWindow() == null) {
-                            updateWindow(window, qc.getId());
-                            q = qc;
-                        }
+            next = temp.get(0);
+        }
+        while (q == null) {
+            for (Queue qc : qs) {
+                if (qc.getClientNumber() == next) {
+                    if (qc.getWindow() == null) {
+                        updateWindow(window, qc.getId());
+                        q = qc;
                     }
                 }
-                next++;
             }
+            next++;
         }
+        return q;
+    }
+
+    @Override
+    public Queue nextClient(int branchId, int departmentId, String window) {
+        String branchDepartmentId = String.valueOf(branchId) + String.valueOf(departmentId);
+        Collection<Queue> qs = findQueuesByBd_Id(branchDepartmentId);
+        Collection<Queue> bqs = findQueuesByBranchId(branchId);  //
+        Queue q = null;
+        removeServedClient(bqs,branchId,departmentId,window);
+        q = updateNextClientWindow(qs,window,q);
         return q;
     }
 
