@@ -34,14 +34,17 @@ public class BranchDepartmentServiceImplementation implements BranchDepartmentSe
     @Override
     public boolean save(BranchDepartment branchDepartment) {
         boolean exists=false;
-        for (BranchDepartment bd: this.findAll()) {
-            if(bd.getBranchDepartmentId().equals(branchDepartment.getBranchDepartmentId())){
-                exists=true;
+        try{
+            for (BranchDepartment bd: this.findAll()) {
+                if(bd.getBranchDepartmentId().equals(branchDepartment.getBranchDepartmentId())){
+                    exists=true;
+                }
             }
-        }
-        if(exists==false){
-            branchDepartmentRepository.save(branchDepartment);
-        }
+            if(exists==false){
+                branchDepartmentRepository.save(branchDepartment);
+            }
+        }catch(Exception e){}
+
         return exists;
     }
 

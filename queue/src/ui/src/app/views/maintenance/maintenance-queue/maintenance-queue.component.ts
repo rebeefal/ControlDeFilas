@@ -35,8 +35,6 @@ export class MaintenanceQueueComponent implements OnInit {
     this.getIPAddress()
   }
 
-
-  tempIp:string;
   getIPAddress() {
     this.branchDepartmentService.getIPAddress().subscribe((value => {
       this.ip = value;
@@ -50,7 +48,7 @@ export class MaintenanceQueueComponent implements OnInit {
               this.branchId = branch.id;
               console.log(this.branchId)
           }})
-        
+
         this.getBranchDepartmentsByBranch(this.branchId);
         this.getAllQueueClientsByBrachId(this.branchId);
         this.cdRef.detectChanges()
@@ -59,8 +57,6 @@ export class MaintenanceQueueComponent implements OnInit {
   }
 
   getBranchDepartmentsByBranch(branchId:number) {
-
-    console.log( " bd in mainy q component "+branchId)
     this.branchDepartmentService.getBranchDepartmentsByBranch(branchId).subscribe((branchDepartments) => {
       this.branchDepartments = branchDepartments;
       this.cdRef.detectChanges()
@@ -73,7 +69,7 @@ export class MaintenanceQueueComponent implements OnInit {
 
       this.cdRef.detectChanges()
     });
-    //this.getAllBranchDepartments(this.queueClients);
+
   }
 
 

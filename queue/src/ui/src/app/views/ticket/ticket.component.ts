@@ -6,6 +6,7 @@ import {BranchDepartment} from "../../models/branch_department";
 import {Branch} from "../../models/branch";
 import {Ip} from "../../models/ip";
 import {BranchService} from "../../services/branch/branch.service";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-ticket',
@@ -13,11 +14,14 @@ import {BranchService} from "../../services/branch/branch.service";
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent implements OnInit {
-  queueClients:QueueClient[];
-  branchDepartments:BranchDepartment[];
+  //queueClients:QueueClient[];
+  queueClients$:QueueClient[];
+  //branchDepartments:BranchDepartment[];
+  branchDepartments$:BranchDepartment[];
   private branch: Branch;
   private branchDepartment:BranchDepartment;
   private queueClient:QueueClient;
+
   ip:Ip;
   branchId:number;
   branches: Branch[];
@@ -29,10 +33,23 @@ export class TicketComponent implements OnInit {
     private queueClientService:QueueClientService
   ) { }
 
-
   ngOnInit(): void {
-    this.getIPAddress()
+    this.getIPAddress();
+    const obs$ = interval(10000);
+    obs$.subscribe((d)=>{
+      this.refresh(d);
+    })
+  }
 
+  refresh(d){
+    if(d%5==0){
+      this.getIPAddress()
+    }
+  }
+
+
+  ngOnChange(){
+    console.log()
   }
 
   tempIp:string;
@@ -55,17 +72,18 @@ export class TicketComponent implements OnInit {
   }
 
 
+
   getBranchDepartmentsByBranch(branchId:number) {
     this.branchDepartmentService.getBranchDepartmentsByBranch(branchId).subscribe((branchDepartments) => {
-      this.branchDepartments = branchDepartments;
+      this.branchDepartments$ = branchDepartments;
       this.cdRef.detectChanges()
     });
   }
 
   getAllQueueClientsByBrachId(branchId:number){
     this.queueClientService.getAllQueueClientsByBrachId(this.branchId).subscribe((queueClients) => {
-      this.queueClients = queueClients;
-      console.log(this.queueClients);
+      this.queueClients$ = queueClients;
+      console.log(this.queueClients$);
       this.cdRef.detectChanges()
     });
 

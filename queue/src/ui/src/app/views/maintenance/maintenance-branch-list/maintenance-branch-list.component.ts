@@ -92,7 +92,6 @@ export class MaintenanceBranchListComponent implements OnInit {
   }
 
   newBranch:Branch;
-
   createBranch(fBranch:NgForm){
     this.newBranch = {
       id:null,

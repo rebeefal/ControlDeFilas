@@ -15,7 +15,7 @@
             Ventanilla
           </h2></th>
         </tr>
-        <tr *ngFor="let queue of queueClients;let index=index">
+        <tr *ngFor="let queue of queueClients$;let index=index">
           <td *ngIf="queue.window"><h1>{{queue.departmentLetter}}{{queue.clientNumber}}</h1></td>
           <td *ngIf="queue.window"><h1>{{queue.window}}</h1></td>
         </tr>

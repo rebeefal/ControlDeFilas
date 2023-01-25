@@ -43,18 +43,20 @@ public class QueueServiceImplementation implements QueueService {
 
     @Override
     public boolean popClient(String branchDepartmentId) {
-        Collection<Queue> qs;
-        qs = queueRepository.findQueuesByBd_Id(branchDepartmentId);
-        int t = 0;
-        Queue temp = (Queue) qs.toArray()[0];
-        t = temp.getClientNumber();
-        for (Queue client : qs) {
-            if (client.getClientNumber() < t) {
-                t = client.getClientNumber();
-                temp = client;
+        try{
+            Collection<Queue> qs;
+            qs = queueRepository.findQueuesByBd_Id(branchDepartmentId);
+            int t = 0;
+            Queue temp = (Queue) qs.toArray()[0];
+            t = temp.getClientNumber();
+            for (Queue client : qs) {
+                if (client.getClientNumber() < t) {
+                    t = client.getClientNumber();
+                    temp = client;
+                }
             }
-        }
-        queueRepository.deleteById(temp.getId());
+            queueRepository.deleteById(temp.getId());
+        } catch (Exception e) { }
         return true;
     }
 
@@ -73,16 +75,18 @@ public class QueueServiceImplementation implements QueueService {
     @Override
     public boolean save(Queue queue) {
         boolean exists=false;
-        for (Queue q: this.findAll()) {
-            if(q.getClientNumber()==queue.getClientNumber()&&
-                q.getDepartmentLetter().equals(queue.getDepartmentLetter())&&
-                q.getBranchId()==queue.getBranchId()){
-                exists=true;
+        try{
+            for (Queue q: this.findAll()) {
+                if(q.getClientNumber()==queue.getClientNumber()&&
+                    q.getDepartmentLetter().equals(queue.getDepartmentLetter())&&
+                    q.getBranchId()==queue.getBranchId()){
+                    exists=true;
+                }
             }
-        }
-        if(exists==false){
-            queueRepository.save(queue);
-        }
+            if(exists==false){
+                queueRepository.save(queue);
+            }
+        } catch (Exception e) { }
         return exists;
     }
 
@@ -93,66 +97,75 @@ public class QueueServiceImplementation implements QueueService {
     }
 
     public void removeServedClient(Collection<Queue> bqs, int branchId, int departmentId, String window){
-        for (Queue c : bqs) {
-            if (c.getBranchId() == branchId
-                    && c.getWindow()!=null) {
-                if (c.getWindow().equals(window)) {
-                    this.deleteById(c.getId());
-                }
-            }
-        }
-    }
-
-    public Queue updateNextClientWindow(Collection<Queue> qs, String window,Queue q){
-        List<Integer> temp = new ArrayList<>();
-        int next=0;
-        for (Queue c : qs) {
-            temp.add(c.getClientNumber());
-            Collections.sort(temp);
-            next = temp.get(0);
-        }
-        while (q == null) {
-            for (Queue qc : qs) {
-                if (qc.getClientNumber() == next) {
-                    if (qc.getWindow() == null) {
-                        updateWindow(window, qc.getId());
-                        q = qc;
+        try{
+            for (Queue c : bqs) {
+                if (c.getBranchId() == branchId
+                        && c.getWindow()!=null) {
+                    if (c.getWindow().equals(window)) {
+                        this.deleteById(c.getId());
                     }
                 }
             }
-            next++;
-        }
+        } catch (Exception e) { }
+
+    }
+
+    public Queue updateNextClientWindow(Collection<Queue> qs, String window,Queue q){
+        try{
+            List<Integer> temp = new ArrayList<>();
+            int next=0;
+            for (Queue c : qs) {
+                temp.add(c.getClientNumber());
+                Collections.sort(temp);
+                next = temp.get(0);
+            }
+            while (q == null) {
+                for (Queue qc : qs) {
+                    if (qc.getClientNumber() == next) {
+                        if (qc.getWindow() == null) {
+                            updateWindow(window, qc.getId());
+                            q = qc;
+                        }
+                    }
+                }
+                next++;
+            }
+        } catch (Exception e) { }
         return q;
     }
 
     @Override
     public Queue nextClient(int branchId, int departmentId, String window) {
-        String branchDepartmentId = String.valueOf(branchId) + String.valueOf(departmentId);
-        Collection<Queue> qs = findQueuesByBd_Id(branchDepartmentId);
-        Collection<Queue> bqs = findQueuesByBranchId(branchId);  //
         Queue q = null;
-        removeServedClient(bqs,branchId,departmentId,window);
-        q = updateNextClientWindow(qs,window,q);
+        try{
+            String branchDepartmentId = String.valueOf(branchId) + String.valueOf(departmentId);
+            Collection<Queue> qs = findQueuesByBd_Id(branchDepartmentId);
+            Collection<Queue> bqs = findQueuesByBranchId(branchId);  //
+            removeServedClient(bqs,branchId,departmentId,window);
+            q = updateNextClientWindow(qs,window,q);
+        } catch (Exception e) { }
         return q;
     }
 
     @Override
     public Queue nextClient(int branchId, int departmentId, String window, int clientNumber) {
         Queue q = null;
-        String branchDepartmentId = String.valueOf(branchId) + String.valueOf(departmentId);
-        Collection<Queue> qs = findQueuesByBd_Id(branchDepartmentId);
-        for (Queue client : qs) {
-            if(client.getBranchId()==branchId
-                    && client.getWindow()!=null){
-                if(client.getWindow().equals(window)) {
-                    this.deleteById(client.getId());
+        try {
+            String branchDepartmentId = String.valueOf(branchId) + String.valueOf(departmentId);
+            Collection<Queue> qs = findQueuesByBd_Id(branchDepartmentId);
+            for (Queue client : qs) {
+                if (client.getBranchId() == branchId
+                        && client.getWindow() != null) {
+                    if (client.getWindow().equals(window)) {
+                        this.deleteById(client.getId());
+                    }
+                }
+                if (client.getClientNumber() == clientNumber) {
+                    updateWindow(window, client.getId());
+                    q = client;
                 }
             }
-            if (client.getClientNumber() == clientNumber) {
-                updateWindow(window, client.getId());
-                q=client;
-            }
-        }
+        } catch (Exception e) { }
         return q;
     }
 }

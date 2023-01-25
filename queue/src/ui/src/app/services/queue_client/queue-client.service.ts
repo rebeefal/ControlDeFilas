@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ErrorService } from '../service_handlers/error/error.service';
 import { HttpClient} from '@angular/common/http'
-import { catchError} from 'rxjs/operators'
-import { Observable } from 'rxjs';
+import {catchError, tap} from 'rxjs/operators'
+import {Observable, Subject} from 'rxjs';
 import { QueueClient } from 'src/app/models/queue_client';
 import {BranchDepartment} from "../../models/branch_department";
 
@@ -11,6 +11,7 @@ import {BranchDepartment} from "../../models/branch_department";
 })
 export class QueueClientService {
 
+
   queryUrl:string = `http://localhost:8080/api/queue`;
   url:string="";
   headers = {
@@ -18,6 +19,7 @@ export class QueueClientService {
       'Content-Type':'application/json'
     }
   }
+
 
   queueClients:QueueClient[];
   get queueClientsSelected(): QueueClient[] {
@@ -59,13 +61,12 @@ export class QueueClientService {
   }
 
   getAllQueueClientsByBrachId(branchId:number):Observable<QueueClient[]>{
-   // console.log( "in queue service " + branchId);
     this.url=``;
     this.url=`${this.queryUrl}/branch/department/${branchId}`;
-    //console.log(branchId + "   "+ this.url)
     return this.http.get<QueueClient[]>(this.url)
       .pipe(catchError(this.errorService.handleError));
   }
+
 
 
 

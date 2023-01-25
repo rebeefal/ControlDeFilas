@@ -21,7 +21,6 @@ public interface QueueRepository extends JpaRepository<Queue, Integer> {
     @Query("UPDATE Queue u SET u.window = :window WHERE u.id=:id")
     void updateWindow(@Param("window") String window, @Param("id") int id);
 
-
     @Query("SELECT q FROM Queue q WHERE q.branchId=:branchId")
     Collection<Queue> findQueuesByBranchId(int branchId);
 
